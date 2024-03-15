@@ -17,13 +17,12 @@ const formatNumber = (num: any) => {
   return (Math.round(num * 100) / 100).toFixed(2);
 };
 
-const Dropdown: React.FC = ({
-  title,
-  value,
-}: {
+interface DropdownProps {
   title: string;
   value: string;
-}) => {
+}
+
+const Dropdown: React.FC<DropdownProps> = ({ title, value }) => {
   return (
     <div>
       <label className="mb-3 block text-sm font-medium text-black dark:text-white">
@@ -152,35 +151,6 @@ const MultipleDropdown: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full px-4">
-                <div
-                  className={`max-h-select absolute left-0 top-full z-40 w-full overflow-y-auto rounded bg-white shadow dark:bg-form-input ${""}`}
-                  ref={dropdownRef}
-                  onFocus={() => setShow(true)}
-                  onBlur={() => setShow(false)}
-                >
-                  <div className="flex w-full flex-col">
-                    {options.map((option, index) => (
-                      <div key={index}>
-                        <div
-                          className="w-full cursor-pointer rounded-t border-b border-stroke hover:bg-primary/5 dark:border-form-strokedark"
-                          onClick={(event) => {}}
-                        >
-                          <div
-                            className={`relative flex w-full items-center border-l-2 border-transparent p-2 pl-2 ${"border-primary"}`}
-                          >
-                            <div className="flex w-full items-center">
-                              <div className="mx-2 leading-6">
-                                {option.text}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -281,15 +251,15 @@ const ECommerce: React.FC = () => {
                 </div>
               </div>
 
-              {data.map((item, key) => {
-                const type = item.key ?? "";
-                const maxDate = formatDate(item.max?.data?.[0]?.receivedAt);
-                const maxValue = formatNumber(item.max?.data?.[0]?.value ?? 0);
-                const minDate = formatDate(item.min?.data?.[0]?.receivedAt);
-                const minValue = formatNumber(item.min?.data?.[0]?.value ?? 0);
-                const avgValue = formatNumber(item.avg?.data?.[0]?.value);
+              {data.map((item: any) => {
+                const type = item?.key ?? "";
+                const maxDate = formatDate(item?.max?.data?.[0]?.receivedAt);
+                const maxValue = formatNumber(item?.max?.data?.[0]?.value ?? 0);
+                const minDate = formatDate(item?.min?.data?.[0]?.receivedAt);
+                const minValue = formatNumber(item?.min?.data?.[0]?.value ?? 0);
+                const avgValue = formatNumber(item?.avg?.data?.[0]?.value);
                 return (
-                  <div className={`grid grid-cols-3 sm:grid-cols-6`} key={key}>
+                  <div className={`grid grid-cols-3 sm:grid-cols-6`} key={type}>
                     <div className="flex items-center gap-3 p-2.5 xl:p-5">
                       <p className="hidden text-black dark:text-white sm:block">
                         {type}
